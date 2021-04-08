@@ -1,7 +1,7 @@
-const another =()=>{
-    console.log("it do be like that sometimes")
-    console.log("it do be like that sometimes")
-    return 44
-}
+import React from 'react';
+import ReactDom from 'react-dom';
+import "./styles/index.scss"
 
-another()
+import App from './Components/App'
+
+ReactDom.render(<App/>,document.getElementById('root'))
