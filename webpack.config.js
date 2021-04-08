@@ -1,5 +1,7 @@
 const path = require("path")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 
 module.exports ={
@@ -10,8 +12,14 @@ module.exports ={
       module:{
           rules:[
               {
+                  test:/\.(png|jpeg|gif|svg)$/i,
+                  type:"assets/resources"
+              },
+              {
                 test:/\.scss$/i,
-                use:[MiniCssExtractPlugin.loader,"css-loader","postcss-loader","sass-loader"],
+                use:[
+                    {loader:MiniCssExtractPlugin.loader,options:{publicPath:""}},
+                    "css-loader","postcss-loader","sass-loader"],
               },
               {
                   test:/\.js$/,
@@ -22,7 +30,9 @@ module.exports ={
               }
           ]
       },
-      plugins:[new MiniCssExtractPlugin()],
+      plugins:[new CleanWebpackPlugin(),new MiniCssExtractPlugin(), new HtmlWebpackPlugin({
+          template:"./src/index.html"
+      })],
       devtool:"source-map",
       devServer:{
           contentBase:"./build",
